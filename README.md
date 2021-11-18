@@ -42,8 +42,9 @@ $ .\env\Scripts\activate
 # Install requirements
 $ pip install -r requirements.txt
 
-# Build the database schema
+# Build the database schema & cache table
 $ python manage.py migrate
+$ python manage.py createcachetable cache_table
 
 # Populate the database from pokeapi.co - does not run periodically
 $ python manage.py populate
