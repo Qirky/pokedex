@@ -19,5 +19,12 @@ COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
 # copy project
 COPY . /usr/src/app/
 
+# Create the cache table
+RUN python manage.py createcachetable cache_table
+
+# Popualte the DB
+RUN python manage.py populate
+
+
 # run entrypoint.sh
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
