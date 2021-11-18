@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/highlight.min.js"></script>
+  <script src="{% static 'js/pokedex-utils.js' %}"></script>
+  <title>Pokedex</title>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-center">
+  <div class='nav-wrapper'>
+    <a class='navbar-brand' href='/'><i class="bi bi-search"></i> Pokedex Search</a>
+  </div>
+
+</nav>
+
+<div class="content container-fluid d-flex justify-content-center">
+  <div class='wrapper'>
+    <div class='row'>
+      <div class='col-3'>
+        <div class='row filter-form-wrapper'>
+          <form method="GET" id='filter-form'>
+            {% for field in form.visible_fields %}
+              {% if field.name in form.check_fields %}
+                <div class='form-check'>
+                  {{ field }}
+                  {{ field.label_tag }}
+                </div>
+              {% else %}
+                <div class='form-group'>
+                  {{ field.label_tag }}
+                  {{ field }}
+                </div>
+              {% endif %}
+            {% endfor %}
+            <div class='d-flex'>
+              <button class='btn btn-primary flex-grow-1 mr-1' type='submit'><i class="bi bi-search"></i> Search</button>
+              <button id='btn-reset-filter-form' class='btn btn-danger' type='button'><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
+            </div>
+          </form>
+        </div>
+        <div class='row'>
+          <button class='btn btn-success btn-block btn-download' type='submit' name='csv' form='pokemon-select-form'>Export to CSV</button>
+        </div>
+        <div class='row'>
+          <button class='btn btn-success btn-block btn-download' type='submit' name='sprites' form='pokemon-select-form'>Download Sprites</button>
+        </div>
+      </div>
+
+      <div class='col'>
+        <table id='tbl-pokemon' class='table table-hover'>
+
+          <thead class='thead-light'>
+            <th><input id='checkbox-select-all' type='checkbox'></th>
+            <th>Index</th>
+            <th>Name</th>
+            <th>Types</th>
+            <th>Sprite</th>
+            <th>Information</th>
+          </thead>
+
+        <form id='pokemon-select-form' method="POST" action="{% url 'export' %}">
+          {% csrf_token %}
+          {% for pokemon in pokemon_list %}
+            <tr class='pokemon-row'>
+              <td><input value={{ pokemon.pk }} type='checkbox' name='selected_pokemon' class='pokemon-checkbox'></td>
+              <td>{{ pokemon.index }}</td>
+              <td>{{ pokemon }}</td>
+              <td>{{ pokemon.get_type_names }}</td>
+              <td><img src="{{ pokemon.sprite_url }}"></td>
+              <td class='flavor-text'>{{ pokemon.random_flavor_text }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan=6>No results</td></tr>
+          {% endfor %}
+          </table>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

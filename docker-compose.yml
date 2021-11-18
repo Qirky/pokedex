@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  web:
+    build: ./django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django/:/usr/src/app/
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+
+  celery:
+    build: ./django
+    command: celery -A project worker -l info
+    volumes:
+      - ./django/:/usr/src/app/
+    depends_on:
+      - redis
+
+  celery-beat:
+    build: ./django
+    command: celery -A project beat -l info
+    volumes:
+      - ./django/:/usr/src/app/
+    depends_on:
+      - redis

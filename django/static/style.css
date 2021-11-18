@@ -1,0 +1,27 @@
+.wrapper {
+  max-width: 1386px;
+  margin: 1em;
+  width: 100%;
+}
+
+.nav-wrapper{
+  max-width: 1386px;
+  width: 100%;
+}
+
+#tbl-pokemon.table > tbody > tr > td {
+     vertical-align: middle;
+}
+
+#tbl-pokemon.table > tbody > tr > td.flavor-text {
+  max-width: 35em;
+}
+
+.filter-form-wrapper form {
+    width: 100%;
+}
+
+.row {
+  margin-bottom: 1em;
+  padding: 0 1em;
+}
