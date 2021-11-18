@@ -7,6 +7,8 @@
 
 This project was built using the Django, Celery, and Redis (backend) and HTML, CSS, JavaScript (frontend). The data is pulled from pokeapi.co every 30 minutes - based on the type of data, this didn't need to happen often but is more for demonstrative purposes - via a Celery task that populates the database with the first 151 Pokemon and relevant attributes e.g. type. This allows for retrieving and filtering data very quickly as it's done locally and can also be done if pokeapi.co is down. Pokemon can be filtered using the left-hand form and selected for export by clicking on the relevant row in the right hand table.
 
+![image](https://user-images.githubusercontent.com/1469662/142439059-6fdf1bba-6587-4bba-bddb-1e0d1b9d4bb3.png)
+
 # Set up
 
 ## Docker
