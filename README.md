@@ -13,20 +13,24 @@ This project was built using the Django, Celery, and Redis (backend) and HTML, C
 
 ```
 # Clone the repo
-$ git clone ...
+$ git clone https://github.com/Qirky/pokedex.git
 
 # Build and run the docker container
 $ cd pokedex
 $ docker-compose up --build
 
-# Run the initial command to populate the database - will run periodically every 30 minutes
+# Run the initial command to populate the database (runs automatically every 30 minutes)
 $ docker-compose exec web python manage.py populate
 ```
 
 ## Python 3.8
 
 ```
+# Clone th repo
+$ git clone https://github.com/Qirky/pokedex.git
+
 # Source a virtual environment
+$ cd pokedex/django
 $ python3 -m venv env
 
 # Install requirements
