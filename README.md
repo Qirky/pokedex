@@ -33,8 +33,17 @@ $ git clone https://github.com/Qirky/pokedex.git
 $ cd pokedex/django
 $ python3 -m venv env
 
+# Activate environment (Unix)
+$ . env/bin/activate
+
+# Activate environment (Windows)
+$ .\env\Scripts\activate
+
 # Install requirements
 $ pip install -r requirements.txt
+
+# Build the database schema
+$ python manage.py migrate
 
 # Populate the database from pokeapi.co - does not run periodically
 $ python manage.py populate
